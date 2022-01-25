@@ -1,0 +1,17 @@
+.imgBlock {
+  display: flex !important;
+  overflow-x: auto !important;
+  flex-wrap: nowrap !important;
+  gap: 20px;
+
+  .img {
+    flex: 0 0 auto;
+    max-width: 200px;
+    max-height: 150px;
+    overflow: hidden;
+
+    &:hover {
+      cursor: zoom-in;
+    }
+  }
+}

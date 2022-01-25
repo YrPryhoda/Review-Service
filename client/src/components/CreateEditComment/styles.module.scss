@@ -1,0 +1,27 @@
+.btnWrapper {
+  flex: 1;
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+
+.commentInput {
+  background-color: #fff;
+}
+
+.header {
+  align-items: center;
+  justify-content: space-between;
+
+  .cancelBtn {
+    display: flex;
+    justify-content: flex-end !important;
+  }
+}
+
+.img {
+  max-width: 120px;
+  margin-right: 10px;
+  margin-top: 10px;
+  aspect-ratio: 4/3;
+}

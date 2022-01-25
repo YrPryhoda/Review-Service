@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 31%;
+  min-width: 300px;
+  justify-content: space-between;
+
+  .img {
+    aspect-ratio: 1/1;
+  }
+}
+
+.img_wrapper {
+  width: 100%;
+}
+
+.link {
+  color: inherit;
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}

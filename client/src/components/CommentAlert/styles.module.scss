@@ -1,0 +1,9 @@
+.alertBlock {
+  padding: 20px 15px !important;
+  border: 1px solid #ccc;
+  font-size: 18px !important;
+
+  & svg {
+    font-size: 42px;
+  }
+}

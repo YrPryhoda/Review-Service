@@ -1,0 +1,36 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+
+  & .profileHeader {
+    font-weight: 800;
+  }
+
+  & .center {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  & .btnBlock {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    justify-content: space-around;
+
+    .btn {
+      background-color: rgba(255, 255, 255, 0.7)
+    }
+  }
+}
+
+.imgBlock img{
+  width: 100%;
+  min-width: 100px;
+  max-width: 250px;
+  aspect-ratio: 1/1;
+  margin-bottom: 10px;
+}
