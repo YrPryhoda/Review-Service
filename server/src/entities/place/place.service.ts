@@ -80,6 +80,15 @@ export class PlacesService {
         }
     }
 
+    async updatePlace(placeId: string, form: Partial<Place>) {
+        const place = await this.placeRepository.findOne({id: placeId});
+        if (!place) {
+            throw new NotFoundException();
+        }
+
+        return await this.placeRepository.update({id: placeId}, form);
+    }
+
     async deletePlace(userId: string, placeId: string): Promise<DeleteResult> {
         const place = await this.placeRepository.findOne({
             where: {id: placeId},

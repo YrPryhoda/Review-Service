@@ -1,0 +1,33 @@
+.table {
+  .title {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+
+  .headerCell {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .rowCell {
+    font-size: 1rem;
+    font-style: italic;
+    cursor: pointer;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .msgNoData {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+  }
+}
+
+.emptyHeader {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}

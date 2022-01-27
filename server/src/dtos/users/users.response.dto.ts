@@ -1,4 +1,4 @@
-import {UserInterface} from '@entities/user/interfaces/user.interface';
+import {UserInterface, UserRole} from '@entities/user/interfaces/user.interface';
 
 export class UsersResponseDto {
     readonly id: string;
@@ -11,6 +11,8 @@ export class UsersResponseDto {
 
     readonly createdAt: Date;
 
+    readonly userRole: UserRole;
+
     constructor(data?: Partial<UserInterface>) {
         if (data) {
             this.id = data.id;
@@ -18,6 +20,7 @@ export class UsersResponseDto {
             this.lastName = data.lastName;
             this.email = data.email;
             this.createdAt = data.createdAt;
+            this.userRole = data.userRole;
         }
     }
 }

@@ -8,5 +8,6 @@ export const routes = {
     accountConfirm: '/auth/confirm/:userId/:signupConfirmId',
     createPlace: '/places/create',
     places: '/places',
+    placeRequests: '/places/requests',
     notFound: '*'
 };

@@ -7,11 +7,15 @@ import {NavLink} from 'react-router-dom';
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {clearSearch, loadAll} from '../../features/places/actions-creators';
-import {useAppDispatch} from '../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
 
 import {routes} from '../../routes/routes';
 import styles from './styles.module.scss';
 import AccountMenu from '../AccountMenu';
+import {selectUser} from '../../features/user/selectors';
+import {selectRequests} from '../../features/places/requests/selectors';
+import {UserRole} from '../../typing/enums';
+import AdminNotificationsIcon from '../AdminNotificationsIcon';
 
 const drawerWidth: number = 320;
 
@@ -44,6 +48,8 @@ interface IProps {
 
 const Appbar = (props: IProps) => {
     const dispatch = useAppDispatch();
+    const {profile} = useAppSelector(selectUser);
+    const {all} = useAppSelector(selectRequests);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClickMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -58,6 +64,10 @@ const Appbar = (props: IProps) => {
         dispatch(clearSearch());
         dispatch(loadAll(1));
     };
+
+    const adminIcon = profile && profile.userRole === UserRole.Admin && (
+        <AdminNotificationsIcon count={all.length}/>
+    );
 
     return (
         <StyledAppBar position="absolute" open={props.open}>
@@ -88,17 +98,20 @@ const Appbar = (props: IProps) => {
                         Dashboard
                     </NavLink>
                 </Typography>
-                <IconButton
-                    color="inherit"
-                    onClick={handleClickMenu}
-                    aria-controls={open ? 'account-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                >
-                    <Badge color="secondary">
-                        <AccountCircleIcon fontSize={'large'}/>
-                    </Badge>
-                </IconButton>
+                <>
+                    {adminIcon}
+                    <IconButton
+                        color="inherit"
+                        onClick={handleClickMenu}
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                    >
+                        <Badge color="secondary">
+                            <AccountCircleIcon fontSize={'large'}/>
+                        </Badge>
+                    </IconButton>
+                </>
                 <AccountMenu open={open} anchorEl={anchorEl} handleClose={handleCloseMenu}/>
             </Toolbar>
         </StyledAppBar>

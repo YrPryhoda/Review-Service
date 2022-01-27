@@ -2,6 +2,7 @@ import {Get, Put, Req, Param, Delete, HttpCode, UseGuards, Controller, NotFoundE
 import {StatusCodes} from 'http-status-codes';
 
 import {JwtAuthGuard} from '@common/guards/auth/jwt-auth.guard';
+import {RolesGuard} from '@common/guards/credentials/admin.credentials.guard';
 import {UsersRequestDto, UsersResponseDto} from '@dtos/users';
 import {UsersService} from '@entities/user/users.service';
 
@@ -12,8 +13,8 @@ export class UsersController {
     ) {
     }
 
-    @UseGuards(JwtAuthGuard)
     @Get('profile')
+    @UseGuards(JwtAuthGuard)
     async getProfile(@Req() req) {
         const profile = await this.userService.getProfile(req.user.id);
 

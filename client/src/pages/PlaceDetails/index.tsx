@@ -8,7 +8,6 @@ import {
     ThemeProvider, createTheme, CssBaseline, Typography, Container, ListItem, Rating, Paper, List, Grid, Box, Button
 } from '@mui/material';
 
-import DeleteCommentModal from '../../components/DeleteCommentModal';
 import CreateEditComment from '../../components/CreateEditComment';
 import PlaceDetailsBlock from '../../components/PlaceDetailsBlock';
 import {calcAverageRating} from '../../helpers/calcAverageRating';
@@ -25,8 +24,11 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {selectUser} from '../../features/user/selectors';
 import useFindById from './hooks/useFindById';
 import {routes} from '../../routes/routes';
-import styles from './styles.module.scss';
+
 import PlaceDetailsImages from '../../components/PlaceDetailsImages';
+import PlaceChangesForm from '../../components/PlaceChangesForm';
+import ModalWindow from '../../components/ModalWindow';
+import styles from './styles.module.scss';
 
 const theme = createTheme();
 
@@ -34,12 +36,13 @@ const PlaceDetails = () => {
     const {placeId} = useParams();
     const {loading, details, error} = useFindById(placeId!);
     const {profile, access_token} = useAppSelector(selectUser);
+    const [modalChanges, setModalChanges] = useState(false);
     const dispatch = useAppDispatch();
     const avgRating = useMemo(() => calcAverageRating(details.comments || []), [details.comments]);
     const [zoomImg, setZoomImg] = useState<string | null>(null);
     const handlerImageClick = (url: string) => setZoomImg(url);
     const handlerZoomImageClose = () => setZoomImg(null);
-
+    const toggleModalOpen = () => setModalChanges(prev => !prev);
     const unAuthWarning = () => NotificationManager.warning(
         'Only authorized users can leave reaction',
         'Info',
@@ -89,11 +92,21 @@ const PlaceDetails = () => {
 
     const createCommentBlock = access_token && profile.id ? <CreateEditComment/> : <CommentAlert/>;
     const reviewsCount = details.comments?.length || 0;
-
     const detailsImages = details.comments?.length
-        ? (<Grid container sx={{mt: 2}} className={styles.paper}>
+        ? <Grid container sx={{mt: 2}} className={styles.paper}>
             <PlaceDetailsImages comments={details.comments} onClick={handlerImageClick}/>
-        </Grid>)
+        </Grid>
+        : null;
+
+    const requestChangesBtn = !details.placeSource
+        ? <Grid container sx={{mt: 2}} className={styles.paper}>
+            <Typography variant="h6">
+                If you want add some information, you might
+            </Typography>
+            <Button onClick={toggleModalOpen}>
+                Request changes
+            </Button>
+        </Grid>
         : null;
 
     return (
@@ -188,6 +201,8 @@ const PlaceDetails = () => {
                     </Grid>
                 </Grid>
 
+                {requestChangesBtn}
+
                 <Grid container sx={{mt: 2}} className={styles.paper}>
                     <Grid item mb={4}>
                         <Typography variant="h5" id={'reviews'}>
@@ -207,6 +222,9 @@ const PlaceDetails = () => {
                     />
                 </Grid>
             </Container>
+            <ModalWindow open={modalChanges} toggleOpen={toggleModalOpen}>
+                <PlaceChangesForm place={details} onClose={toggleModalOpen}/>
+            </ModalWindow>
         </ThemeProvider>
     );
 };

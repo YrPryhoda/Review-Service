@@ -14,6 +14,8 @@ import Login from '../pages/Login';
 import Main from '../pages/Main';
 import {routes} from './routes';
 import RegisterFinish from '../pages/RegisterFinish';
+import AdminRoutes from '../components/common/AdminRoutes';
+import PlaceRequests from '../pages/PlaceRequests';
 
 export const Router = () => {
     return <BrowserRouter>
@@ -30,12 +32,15 @@ export const Router = () => {
                 <Route path={routes.registerFinish} element={<RegisterFinish/>}/>
             </Route>
 
+            <Route element={<AdminRoutes/>}>
+                <Route path={routes.placeRequests} element={<PlaceRequests/>}/>
+            </Route>
+
             <Route element={<ProfileLoader/>}>
                 <Route path={routes.home} element={<Main/>}/>
                 <Route path={routes.placeDetails} element={<PlaceDetails/>}/>
+                <Route path={routes.notFound} element={<NotFound/>}/>
             </Route>
-
-            <Route path={routes.notFound} element={<NotFound/>}/>
         </Routes>
     </BrowserRouter>;
 };

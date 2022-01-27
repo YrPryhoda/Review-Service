@@ -1,4 +1,4 @@
-import {createReducer} from '@reduxjs/toolkit';
+import {combineReducers, createReducer} from '@reduxjs/toolkit';
 
 import {clearAll, clearSearch, createPlace, findById, findByParams, geocode, loadAll} from './actions-creators';
 import {createCommentLike, createPlaceLike} from './like/action-creators';

@@ -7,13 +7,15 @@ import {PlaceInterface} from '../../../typedef';
 
 import FlexItem from '../FlexItem';
 import styles from './styles.module.scss';
+import {urlCreator} from '../../helpers/urlCreator';
 
 interface IProps {
     place: PlaceInterface;
 }
 
 const PlaceDetailsBlock = ({place}: IProps) => {
-    const websiteLink = <a href={place.website} target={'_blank'} rel={'noreferrer'}> {place.website} </a>;
+    const url = useMemo(() => urlCreator(place.website), [place.website]);
+    const websiteLink = <a href={url} target={'_blank'} rel={'noreferrer'}> {place.website} </a>;
 
     const parsedFacilities = useMemo(() => facilitiesParser(place.facilities), [place.facilities]);
     const parsedContacts = useMemo(() => contactsParser(place.contact), [place.contact]);

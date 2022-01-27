@@ -121,8 +121,8 @@ const CreateEditComment = ({comment, onEditCancel}: IProps) => {
                 fullWidth
                 multiline
             />
-            <div className={styles.btnWrapper}>
-                <label htmlFor="contained-button-file">
+            <div className={`${styles.btnWrapper} ${comment && styles.editWrap}`}>
+                {!comment && <label htmlFor="contained-button-file">
                     <Input
                         onChange={handlerImagesChange}
                         id="contained-button-file"
@@ -138,7 +138,7 @@ const CreateEditComment = ({comment, onEditCancel}: IProps) => {
                     >
                         Upload (5 max)
                     </Button>
-                </label>
+                </label>}
                 <div>
                     <Button
                         onClick={() => clearForm()}

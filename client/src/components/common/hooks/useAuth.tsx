@@ -6,7 +6,7 @@ import {selectUser} from '../../../features/user/selectors';
 
 const useAuth = () => {
     const dispatch = useAppDispatch();
-    const {access_token} = useAppSelector(selectUser);
+    const {access_token, profile} = useAppSelector(selectUser);
     const [profileLoading, setProfileLoading] = useState(true);
 
     useEffect(() => {
@@ -19,7 +19,8 @@ const useAuth = () => {
 
     return {
         access_token,
-        profileLoading
+        profileLoading,
+        profile
     };
 };
 

@@ -13,6 +13,7 @@ import {UserResponse} from '@entities/user/interfaces/user.interface';
 import {PlaceLike} from '@entities/place/like/place.like.entity';
 import {Comment} from '@entities/comment/comment.entity';
 import {User} from '@entities/user/user.entity';
+import {PlaceChangeRequest} from '@entities/place/request/request.entity';
 
 @Entity()
 export class Place implements PlaceNormalizedInterface {
@@ -43,13 +44,16 @@ export class Place implements PlaceNormalizedInterface {
     @Column({type: 'varchar', length: 64, nullable: false, unique: false})
     addressLine2: string;
 
-    @Column({type: 'varchar', length: 128, nullable: true, unique: false})
+    @Column({type: 'varchar', length: 256, nullable: true, unique: false})
     facilities?: string;
 
-    @Column({type: 'varchar', length: 64, nullable: false, unique: false})
+    @Column({type: 'varchar', length: 128, nullable: true, unique: false})
+    website?: string;
+
+    @Column({type: 'varchar', length: 256, nullable: false, unique: false})
     categories: string;
 
-    @Column({type: 'varchar', length: 48, nullable: true, unique: false})
+    @Column({type: 'varchar', length: 256, nullable: true, unique: false})
     contact?: string;
 
     @Column({type: 'varchar', length: 48, nullable: true, unique: false})
@@ -88,4 +92,10 @@ export class Place implements PlaceNormalizedInterface {
         placeLike => placeLike.place
     )
     likes: PlaceLike[];
+
+    @OneToMany(
+        () => PlaceChangeRequest,
+        placeChange => placeChange.place
+    )
+    requests: PlaceChangeRequest[];
 }

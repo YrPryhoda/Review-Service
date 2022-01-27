@@ -9,10 +9,11 @@ import {
 } from 'typeorm';
 
 import {CommentLike} from '@entities/comment/like/comment.like.entity';
-import {EmailStatus, UserInterface} from './interfaces/user.interface';
+import {EmailStatus, UserInterface, UserRole} from './interfaces/user.interface';
 import {PlaceLike} from '@entities/place/like/place.like.entity';
 import {Comment} from '@entities/comment/comment.entity';
 import {Place} from '@entities/place/place.entity';
+import {PlaceChangeRequest} from '@entities/place/request/request.entity';
 
 @Entity()
 @Unique('email', ['email'])
@@ -31,6 +32,9 @@ export class User implements UserInterface {
 
     @Column({type: 'enum', enum: EmailStatus, nullable: true, default: EmailStatus.Pending})
     emailStatus: EmailStatus;
+
+    @Column({type: 'enum', enum: UserRole, nullable: true, default: UserRole.User})
+    userRole: UserRole;
 
     @Column({type: 'varchar', length: 256, nullable: true, default: null})
     signupConfirmId: string;
@@ -70,4 +74,10 @@ export class User implements UserInterface {
         placeLike => placeLike.user
     )
     placesLikes?: PlaceLike[];
+
+    @OneToMany(
+        () => PlaceChangeRequest,
+        placeChange => placeChange.user
+    )
+    requests?: PlaceChangeRequest[];
 }

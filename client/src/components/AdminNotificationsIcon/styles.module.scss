@@ -1,0 +1,24 @@
+.iconWrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  margin-right: 20px;
+
+  .iconRing {
+    font-size: 36px !important;
+  }
+
+  .countBlock {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: #ecc400;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+}

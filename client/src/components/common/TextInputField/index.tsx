@@ -8,11 +8,12 @@ type Props = {
     type?: string;
     value: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    required?: boolean
+    required?: boolean;
+    className?: string;
 }
 
 const TextInputField = (props: Props) => {
-    const {value, onChange, name, label, required = true, type = 'text', autoFocus = false} = props;
+    const {value, onChange, name, label, required = true, type = 'text', autoFocus = false, className} = props;
     return (
         <MUITextField
             margin="normal"
@@ -25,6 +26,7 @@ const TextInputField = (props: Props) => {
             onChange={onChange}
             autoComplete={name}
             autoFocus={autoFocus}
+            className={className}
         />
     );
 };
